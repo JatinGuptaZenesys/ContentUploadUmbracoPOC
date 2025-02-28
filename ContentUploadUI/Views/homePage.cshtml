@@ -1,0 +1,96 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+<style>
+    /* Body Styling */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Glassmorphic Container */
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    /* Labels */
+    .form-group label {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Stylish Button */
+    .btn {
+        background: linear-gradient(135deg, #ff9966, #ff5e62);
+        border: none;
+        color: white;
+        padding: 14px 28px;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 300px;
+    }
+
+        /* Hover & Active Effects */
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+</style>
+
+<!-- UI Container -->
+<div class="container">
+@*     <div class="form-group">
+        <label>📷 Image Processing Module</label>
+        <br />
+        <label>Click on button to upload images to the Umbraco Library</label>
+    </div>
+    <!-- Form Button -->
+    <form asp-controller="UploadImage" asp-action="UploadImagesToUmbraco" method="post">
+        <button type="submit" class="btn">🚀 Upload Images</button>
+    </form>
+
+    <div class="form-group">
+        <label>Click for get all the images from Umbraco Library in JSON format</label>
+    </div>
+
+    <form asp-controller="GetImagesFromLibrary" asp-action="GetAllImages" method="get">
+        <button type="submit" class="btn">📷 Get All Images</button>
+    </form> *@
+
+    <div class="form-group">
+        <label>Click for upload content to Article module with image</label>
+    </div>
+
+    <form asp-controller="UploadContent" asp-action="ImportContentWithImage" method="post">
+        <button type="submit" class="btn">📷 Upload Content with image</button>
+    </form>
+</div>

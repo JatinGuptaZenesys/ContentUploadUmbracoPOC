@@ -1,0 +1,113 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    // File types selected by the user
+    var selectedFileTypes = Model.Value<string>("fileDropdown")?.Split(',').Select(f => f.Trim()).ToList() ?? new List<string>();
+    var selectedImageTypes = Model.Value<string>("imageExtensionDropdown")?.Split(',').Select(f => f.Trim()).ToList() ?? new List<string>();
+
+    // All available file types in the dropdown
+    var fileTypeOptions = Model.Value<IEnumerable<string>>("fileDropdown") ?? new List<string>();
+    var imageTypeOptions = Model.Value<IEnumerable<string>>("imageExtensionDropdown") ?? new List<string>();
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 500px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    select, input[type="file"], button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    select {
+        height: auto;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+</style>
+<body>
+    <div class="container">
+        <h2>Import Content</h2>
+        <form method="post" enctype="multipart/form-data" asp-controller="UploadContent" asp-action="ImportContentWithImage">
+
+            <!-- File Type Dropdown -->
+            <label for="fileType">Select File Type:</label>
+            <select name="fileType" id="fileType" multiple required onchange="updateFileInputAccept()">
+                @foreach (var fileType in fileTypeOptions)
+                {
+                    <option value="@fileType" selected="@(selectedFileTypes.Contains(fileType) ? "selected" : null)">@fileType</option>
+                }
+            </select>
+
+            <!-- Image Type Dropdown -->
+            <label for="imageTypes">Select Image Type:</label>
+            <select name="imageTypes" id="imageTypes" multiple required>
+                @foreach (var imageType in imageTypeOptions)
+                {
+                    <option value="@imageType" selected="@(selectedImageTypes.Contains(imageType) ? "selected" : null)">@imageType</option>
+                }
+            </select>
+
+            <!-- File Upload -->
+            <label for="fileUpload">Upload File:</label>
+            <input type="file" name="fileUploads" id="fileUpload" multiple required>
+
+            <!-- Submit Button -->
+            <button type="submit">Import Content</button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function updateFileInputAccept() {
+            const fileTypes = [...document.getElementById("fileType").selectedOptions]
+                              .map(option => option.value)
+                              .join(",");
+            document.getElementById("fileUpload").accept = fileTypes;
+        }
+    </script>
+</body>
